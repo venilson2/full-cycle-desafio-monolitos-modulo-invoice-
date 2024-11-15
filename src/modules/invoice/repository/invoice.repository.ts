@@ -7,7 +7,7 @@ import { InvoiceModel } from "./invoice.model";
 export default class InvoiceRepository implements InvoiceGateway {
 
   async find(id: string): Promise<Invoice> {
-    
+
     const invoice = await InvoiceModel.findOne({ where: { id: id } })
 
     return new Invoice({

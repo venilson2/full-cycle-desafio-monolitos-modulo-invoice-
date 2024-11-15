@@ -5,32 +5,6 @@ import { InvoiceItems } from "../../domain/invoice-items";
 import GenerateInvoiceUseCase from "./generate-invoice.usecase";
 import { GenerateInvoiceUseCaseInputDto } from "./generate-invoice.usecase.dto";
 
-const invoice = new Invoice({
-  id: new Id("1"),
-  name: "Lucian",
-  document: "1234-5678",
-  address: new Address(
-    "Rua 123",
-    "99",
-    "Casa Verde",
-    "Criciúma",
-    "SC",
-    "88888-888",
-  ),
-  items: [
-    new InvoiceItems({
-      id: new Id("1"),
-      name: "Item 1",
-      price: 10
-    }),
-    new InvoiceItems({
-      id: new Id("2"),
-      name: "Item 2",
-      price: 20
-    })
-  ],
-});
-
 const MockRepository = () => {
   return {
     process: jest.fn(),
@@ -70,6 +44,7 @@ describe("Generate Invoice use case unit test", () => {
     expect(repository.process).toHaveBeenCalled()
     expect(result.id).toBeDefined()
     expect(result.name).toEqual(input.name)
+    expect(result.document).toEqual(input.document)
     expect(result.city).toEqual(input.city)
     expect(result.complement).toEqual(input.complement)
     expect(result.number).toEqual(input.number)
