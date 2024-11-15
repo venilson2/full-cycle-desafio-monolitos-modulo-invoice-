@@ -1,11 +1,12 @@
 import BaseEntity from "../../@shared/domain/entity/base.entity";
 import Id from "../../@shared/domain/value-object/id.value-object";
 
-
 type InvoiceItemsProps = {
   id?: Id;
   name: string;
   price: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export class InvoiceItems extends BaseEntity {
@@ -13,7 +14,7 @@ export class InvoiceItems extends BaseEntity {
   private _price: number;
 
   constructor(props: InvoiceItemsProps) {
-    super();
+    super(props.id, props.createdAt, props.updatedAt);
     this._name = props.name;
     this._price = props.price;
     this.validate();

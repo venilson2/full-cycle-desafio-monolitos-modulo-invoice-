@@ -10,6 +10,8 @@ type InvoiceProps = {
   document: string;
   address: Address;
   items: InvoiceItems[];
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export class Invoice extends BaseEntity implements AggregateRoot {
@@ -19,7 +21,7 @@ export class Invoice extends BaseEntity implements AggregateRoot {
   private _items: InvoiceItems[];
 
   constructor(props: InvoiceProps) {
-    super();
+    super(props.id, props.createdAt, props.updatedAt);
     this._name = props.name;
     this._document = props.document;
     this._address = props.address;
