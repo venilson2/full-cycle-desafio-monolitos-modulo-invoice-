@@ -5,6 +5,7 @@ import { Invoice } from "../domain/invoice";
 import { InvoiceItems } from "../domain/invoice-items";
 import { InvoiceModel } from "./invoice.model";
 import InvoiceRepository from "./invoice.repository";
+import { InvoiceItemModel } from "./invoice-item.model";
 
 describe("generate Invoice use case unit test", () => {
 
@@ -18,7 +19,7 @@ describe("generate Invoice use case unit test", () => {
       sync: { force: true }
     })
 
-    await sequelize.addModels([InvoiceModel])
+    await sequelize.addModels([InvoiceModel, InvoiceItemModel])
     await sequelize.sync()
   })
 

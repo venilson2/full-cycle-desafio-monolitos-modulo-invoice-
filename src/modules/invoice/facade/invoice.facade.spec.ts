@@ -5,6 +5,7 @@ import GenerateInvoiceUseCase from "../usecase/generate-invoice/generate-invoice
 import InvoiceFacade from "./invoice.facade";
 import { FindInvoiceUseCaseOutputDTO } from "./invoice.facade.interface";
 import FindInvoiceUseCase from "../usecase/find-invoice/find-invoice.usecase";
+import { InvoiceItemModel } from "../repository/invoice-item.model";
 
 describe("InvoiceFacade test", () => {
   let sequelize: Sequelize;
@@ -17,7 +18,7 @@ describe("InvoiceFacade test", () => {
       sync: { force: true },
     });
 
-    sequelize.addModels([InvoiceModel]);
+    sequelize.addModels([InvoiceModel, InvoiceItemModel]);
     await sequelize.sync();
   });
 
@@ -118,7 +119,7 @@ describe("InvoiceFacade test", () => {
     }
 
     await InvoiceModel.create({
-      id: input.id,
+      id: output.id,
       city: output.address.city,
       complement: output.address.complement,
       number: output.address.number,
@@ -130,6 +131,15 @@ describe("InvoiceFacade test", () => {
       createdAt: output.createdAt,
       updatedAt: output.createdAt,
     });
+
+    await InvoiceItemModel.bulkCreate(output.items.map((item) => ({
+      id: item.id,
+      name: item.name,
+      price: item.price,
+      createdAt: output.createdAt,
+      updatedAt: output.createdAt,
+      invoiceId: output.id
+    })))
       
     const result = await facade.find(input);
 
