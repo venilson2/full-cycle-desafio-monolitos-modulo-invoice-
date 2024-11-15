@@ -3,11 +3,11 @@ import { InvoiceModel } from "../repository/invoice.model";
 import InvoiceRepository from "../repository/invoice.repository";
 import GenerateInvoiceUseCase from "../usecase/generate-invoice/generate-invoice.usecase";
 import InvoiceFacade from "./invoice.facade";
-import { FindInvoiceUseCaseOutputDTO } from "./invoice.facade.interface";
 import FindInvoiceUseCase from "../usecase/find-invoice/find-invoice.usecase";
 import { InvoiceItemModel } from "../repository/invoice-item.model";
+import InvoiceFacadeFactory from "../factory/invoice.facade.factory";
 
-describe("InvoiceFacade test", () => {
+describe("Invoice Facade test", () => {
   let sequelize: Sequelize;
 
   beforeEach(async () => {
@@ -27,15 +27,15 @@ describe("InvoiceFacade test", () => {
   });
 
   it("should generate a invoice", async () => {
-    const repository = new InvoiceRepository();
-    const usecase = new GenerateInvoiceUseCase(repository);
+    // const repository = new InvoiceRepository();
+    // const usecase = new GenerateInvoiceUseCase(repository);
 
-    const facade = new InvoiceFacade({
-      findUsecase: undefined,
-      processUsecase: usecase,
-    });
+    // const facade = new InvoiceFacade({
+    //   findUsecase: undefined,
+    //   processUsecase: usecase,
+    // });
 
-    // const facade = PaymentFacadeFactory.process();
+    const facade = InvoiceFacadeFactory.create();
 
     const input = {
       id: "1",
@@ -76,15 +76,15 @@ describe("InvoiceFacade test", () => {
 
   it("should find a invoice", async () => {
 
-    const repository = new InvoiceRepository();
-    const usecase = new FindInvoiceUseCase(repository);
+    // const repository = new InvoiceRepository();
+    // const usecase = new FindInvoiceUseCase(repository);
 
-    const facade = new InvoiceFacade({
-      findUsecase: usecase,
-      processUsecase: undefined,
-    });
+    // const facade = new InvoiceFacade({
+    //   findUsecase: usecase,
+    //   processUsecase: undefined,
+    // });
 
-    // const facade = PaymentFacadeFactory.process();
+    const facade = InvoiceFacadeFactory.create();
 
     const output = {
       id: "1",
